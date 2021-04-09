@@ -4,12 +4,17 @@ choco install python -y
 choco install yarn -y
 choco install nodejs -y
 choco install neovim -y
+choco install cmake -y
+choco install golang -y
+choco install ojdkbuild -y
 choco install pip -y --allow-empty-checksums
 
 #pip2.exe install neovim
 pip3 install neovim
 pip3 install --user pynvim
 yarn global add neovim typescript-language-server
+
+Set-ExecutionPolicy unrestricted
 
 # create folders
 New-Item -ItemType Directory -Path "~/AppData/Local/nvim/autoload" -Force

@@ -184,4 +184,4 @@ nmap <Space> :NERDTreeTabsToggle<CR>
 "" /custom mappings
 
 autocmd BufWritePre *.rs :call LanguageClient#textDocument_formatting()
-let g:python3_host_prog='C:/Python39/python.exe'
+" let g:python3_host_prog='C:/Python39/python.exe'

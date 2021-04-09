@@ -1,6 +1,6 @@
 Guifont! Consolas:h14
 GuiTabline 0
-GuiPopupMenu 0
+GuiPopupmenu 0
 
 if exists('g:GtkGuiLoaded')
     call rpcnotify(1, 'Gui', 'Option', 'Popupmenu', 1)
