@@ -9,7 +9,7 @@ choco install pip -y --allow-empty-checksums
 #pip2.exe install neovim
 pip3 install neovim
 pip3 install --user pynvim
-yarn global add neovim
+yarn global add neovim typescript-language-server
 
 # create folders
 New-Item -ItemType Directory -Path "~/AppData/Local/nvim/autoload" -Force
