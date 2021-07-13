@@ -1,18 +1,28 @@
 choco install git -y
-choco install python -y
-#choco install python2 -y
+choco install python3 -y
+choco install python2 -y
+pip2 install neovim
 choco install yarn -y
-choco install nodejs -y
+choco install nvm -y
+nvm install 14.16.1
+nvm use 14.16.1
+nvm on
+npm install -g yarn
 choco install neovim -y
 choco install cmake -y
 choco install golang -y
 choco install ojdkbuild -y
+choco install nvm -y
+choco install ruby2.devkit -y
+choco install gem -y
+gem install neovim
 choco install pip -y --allow-empty-checksums
+choco install pip2 -y --allow-empty-checksums
 
 #pip2.exe install neovim
 pip3 install neovim
 pip3 install --user pynvim
-yarn global add neovim typescript-language-server
+npm install -g neovim typescript-language-server
 
 Set-ExecutionPolicy unrestricted
 

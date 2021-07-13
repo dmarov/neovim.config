@@ -37,6 +37,8 @@ set updatetime=100
 set completeopt=menu
 set incsearch
 
+let g:python3_host_prog='C:/Python39/python.exe'
+
 " plug
 call plug#begin('~/AppData/Local/nvim/plugged')
 Plug 'mattn/emmet-vim'
@@ -78,6 +80,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'https://github.com/dmarov/minimalist'
 Plug 'joshdick/onedark.vim'
 Plug 'OmniSharp/omnisharp-vim'
+
 call plug#end()
 " /plug
 
@@ -165,6 +168,7 @@ let g:ctrlsf_winsize = '100%'
 
 let g:LanguageClient_serverCommands = {
     \ 'cpp': ['clangd'],
+    \ 'c': ['clangd'],
     \ 'javascript': ['C:\Users\mds3d\AppData\Local\Yarn\bin\typescript-language-server.cmd', '--stdio'],
     \ 'typescript': ['C:\Users\mds3d\AppData\Local\Yarn\bin\typescript-language-server.cmd', '--stdio'],
     \ }
@@ -184,4 +188,3 @@ nmap <Space> :NERDTreeTabsToggle<CR>
 "" /custom mappings
 
 autocmd BufWritePre *.rs :call LanguageClient#textDocument_formatting()
-" let g:python3_host_prog='C:/Python39/python.exe'
