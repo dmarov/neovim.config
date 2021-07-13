@@ -65,11 +65,11 @@ Plug 'janko-m/vim-test'
 Plug 'ycm-core/YouCompleteMe'
 Plug 'joshdick/onedark.vim'
 " important!!! to enable running powershell scripts in system settings
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'tag': 'binary-*-i686-pc-windows-gnu',
-    \ 'do': 'install.ps1'
-    \ }
+" Plug 'autozimu/LanguageClient-neovim', {
+"     \ 'branch': 'next',
+"     \ 'tag': 'binary-*-i686-pc-windows-gnu',
+"     \ 'do': 'install.ps1'
+"     \ }
 Plug 'cespare/vim-toml'
 Plug 'sheerun/vim-polyglot'
 Plug 'SirVer/ultisnips'
@@ -80,6 +80,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'https://github.com/dmarov/minimalist'
 Plug 'joshdick/onedark.vim'
 Plug 'OmniSharp/omnisharp-vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
 " /plug
@@ -166,12 +167,12 @@ let g:ctrlsf_selected_line_hl = 'op'
 let g:ctrlsf_winsize = '100%'
 " ctrlsf
 
-let g:LanguageClient_serverCommands = {
-    \ 'cpp': ['clangd'],
-    \ 'c': ['clangd'],
-    \ 'javascript': ['C:\Users\mds3d\AppData\Local\Yarn\bin\typescript-language-server.cmd', '--stdio'],
-    \ 'typescript': ['C:\Users\mds3d\AppData\Local\Yarn\bin\typescript-language-server.cmd', '--stdio'],
-    \ }
+" let g:LanguageClient_serverCommands = {
+"     \ 'cpp': ['clangd'],
+"     \ 'c': ['clangd'],
+"     \ 'javascript': ['C:\Users\mds3d\AppData\Local\Yarn\bin\typescript-language-server.cmd', '--stdio'],
+"     \ 'typescript': ['C:\Users\mds3d\AppData\Local\Yarn\bin\typescript-language-server.cmd', '--stdio'],
+"     \ }
 
 
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
@@ -188,3 +189,15 @@ nmap <Space> :NERDTreeTabsToggle<CR>
 "" /custom mappings
 
 autocmd BufWritePre *.rs :call LanguageClient#textDocument_formatting()
+
+let g:coc_global_extensions = [
+      \'coc-angular',
+      \'coc-cmake',
+      \'coc-vetur',
+      \'coc-css',
+      \'coc-git',
+      \'coc-html',
+      \'coc-phpls', 
+      \'coc-json', 
+      \'coc-tsserver'
+      \]
