@@ -50,7 +50,6 @@ Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'jistr/vim-nerdtree-tabs'
-"Plug 'terryma/vim-multiple-cursors'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'matze/vim-move'
 Plug 'tpope/vim-surround'
@@ -64,12 +63,6 @@ Plug 'godlygeek/tabular'
 Plug 'janko-m/vim-test'
 Plug 'ycm-core/YouCompleteMe'
 Plug 'joshdick/onedark.vim'
-" important!!! to enable running powershell scripts in system settings
-" Plug 'autozimu/LanguageClient-neovim', {
-"     \ 'branch': 'next',
-"     \ 'tag': 'binary-*-i686-pc-windows-gnu',
-"     \ 'do': 'install.ps1'
-"     \ }
 Plug 'cespare/vim-toml'
 Plug 'sheerun/vim-polyglot'
 Plug 'SirVer/ultisnips'
@@ -135,17 +128,6 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
 let g:move_key_modifier = 'C'
 " /vim-move
 
-
-" " deoplete
-" let g:deoplete#enable_at_startup = 1
-" function Multiple_cursors_before()
-"     let g:deoplete#disable_auto_complete = 1
-" endfunction
-" function Multiple_cursors_after()
-"     let g:deoplete#disable_auto_complete = 0
-" endfunction
-" " /deoplete
-
 " vim-test
 nmap <silent> <leader>t :TestNearest<CR>
 nmap <silent> <leader>T :TestFile<CR>
@@ -167,14 +149,6 @@ let g:ctrlsf_selected_line_hl = 'op'
 let g:ctrlsf_winsize = '100%'
 " ctrlsf
 
-" let g:LanguageClient_serverCommands = {
-"     \ 'cpp': ['clangd'],
-"     \ 'c': ['clangd'],
-"     \ 'javascript': ['C:\Users\mds3d\AppData\Local\Yarn\bin\typescript-language-server.cmd', '--stdio'],
-"     \ 'typescript': ['C:\Users\mds3d\AppData\Local\Yarn\bin\typescript-language-server.cmd', '--stdio'],
-"     \ }
-
-
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 nnoremap <F6> :call LanguageClient#explainErrorAtPoint()<CR>
 " Or map each action separately
@@ -188,8 +162,6 @@ nmap <Tab> <C-w>w
 nmap <Space> :NERDTreeTabsToggle<CR>
 "" /custom mappings
 
-autocmd BufWritePre *.rs :call LanguageClient#textDocument_formatting()
-
 let g:coc_global_extensions = [
       \'coc-angular',
       \'coc-cmake',
@@ -201,3 +173,17 @@ let g:coc_global_extensions = [
       \'coc-json', 
       \'coc-tsserver'
       \]
+
+function! s:GoToDefinition()
+  if CocAction('jumpDefinition')
+    return v:true
+  endif
+
+endfunction
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nmap <leader> rn <Plug>(coc-rename)
+nnoremap <silent> K :call <SID>show_documentation()<CR>
