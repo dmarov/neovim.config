@@ -1,4 +1,5 @@
 syntax on
+set encoding=utf-8
 set termguicolors
 set hidden
 let g:rehash256 = 1
@@ -9,6 +10,9 @@ set imsearch=0
 set autoread
 set updatetime=250
 set noswapfile
+set nobackup
+set undofile
+set undodir=~/.config/nvim/backups
 set number
 set relativenumber
 set nowrap
@@ -19,6 +23,7 @@ set fillchars+=vert:\
 set list
 set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
 set exrc
+set secure
 
 set tabstop=4
 set shiftwidth=4
@@ -30,9 +35,12 @@ set smartindent
 set scrolloff=10
 set updatetime=100
 set completeopt=menu
+set incsearch
+
+let g:python3_host_prog='C:/Python39/python.exe'
 
 " plug
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin('~/AppData/Local/nvim/plugged')
 Plug 'mattn/emmet-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -42,7 +50,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'jistr/vim-nerdtree-tabs'
-Plug 'terryma/vim-multiple-cursors'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'matze/vim-move'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
@@ -52,16 +60,21 @@ Plug 'gregsexton/matchtag'
 Plug 'dyng/ctrlsf.vim'
 Plug 'mhinz/vim-signify'
 Plug 'godlygeek/tabular'
-Plug 'jsfaint/gen_tags.vim'
 Plug 'janko-m/vim-test'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'ycm-core/YouCompleteMe'
 Plug 'joshdick/onedark.vim'
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
 Plug 'cespare/vim-toml'
 Plug 'sheerun/vim-polyglot'
+Plug 'SirVer/ultisnips'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'mbbill/undotree'
+Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
+Plug 'https://github.com/dmarov/minimalist'
+Plug 'joshdick/onedark.vim'
+Plug 'OmniSharp/omnisharp-vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 call plug#end()
 " /plug
 
@@ -81,7 +94,7 @@ autocmd FileType cshtml,html,css,scss EmmetInstall
 " /emmet
 "
 " nerdtree
-let NERDTreeWinSize = 25
+let NERDTreeWinSize = 30
 let g:NERDTreeDirArrows = 1
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
@@ -98,7 +111,7 @@ let g:nerdtree_tabs_synchronize_view = 0
 " /nerdtree-tabs
 "
 " nerdtree-git-plugin
-let g:NERDTreeIndicatorMapCustom = {
+let g:NERDTreeGitStatusIndicatorMapCustom = {
     \ "Modified"  : "✹",
     \ "Staged"    : "✚",
     \ "Untracked" : "✭",
@@ -114,17 +127,6 @@ let g:NERDTreeIndicatorMapCustom = {
 " vim-move
 let g:move_key_modifier = 'C'
 " /vim-move
-
-
-" deoplete
-let g:deoplete#enable_at_startup = 1
-function Multiple_cursors_before()
-    let g:deoplete#disable_auto_complete = 1
-endfunction
-function Multiple_cursors_after()
-    let g:deoplete#disable_auto_complete = 0
-endfunction
-" /deoplete
 
 " vim-test
 nmap <silent> <leader>t :TestNearest<CR>
@@ -147,20 +149,41 @@ let g:ctrlsf_selected_line_hl = 'op'
 let g:ctrlsf_winsize = '100%'
 " ctrlsf
 
-" LanguageClient
-let g:LanguageClient_serverCommands = {
-    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-    \ 'php': ['/usr/bin/php', '$HOME/.composer/vendor/felixfbecker/language-server/bin/php-language-server.php']
-    \ }
-" /LanguageClient
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+nnoremap <F6> :call LanguageClient#explainErrorAtPoint()<CR>
+" Or map each action separately
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+" "/LanguageClient
 "
 " /custom mappings
 nmap <Tab> <C-w>w
 nmap <Space> :NERDTreeTabsToggle<CR>
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 "" /custom mappings
 
-autocmd BufWritePre *.rs :call LanguageClient#textDocument_formatting()
+let g:coc_global_extensions = [
+      \'coc-angular',
+      \'coc-cmake',
+      \'coc-vetur',
+      \'coc-css',
+      \'coc-git',
+      \'coc-html',
+      \'coc-phpls', 
+      \'coc-json', 
+      \'coc-tsserver'
+      \]
+
+function! s:GoToDefinition()
+  if CocAction('jumpDefinition')
+    return v:true
+  endif
+
+endfunction
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nmap <leader> rn <Plug>(coc-rename)
+nnoremap <silent> K :call <SID>show_documentation()<CR>
