@@ -39,6 +39,7 @@ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 # install config
 ln -sf `pwd`/init.vim ~/.config/nvim/init.vim
 ln -sf `pwd`/ginit.vim ~/.config/nvim/ginit.vim
+ln -sf `pwd`/coc-settings.json ~/.config/nvim/coc-settings.json
 
 cd ~
 

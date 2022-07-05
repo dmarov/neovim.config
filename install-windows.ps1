@@ -37,6 +37,7 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/junegunn/vim-plug/mast
 # install config
 New-Item -ItemType SymbolicLink -Path "$home/AppData/Local/nvim/init.vim" -Target "$pwd/init-win.vim" -Force
 New-Item -ItemType SymbolicLink -Path "$home/AppData/Local/nvim/ginit.vim" -Target "$pwd/ginit.vim" -Force
+New-Item -ItemType SymbolicLink -Path "$home/AppData/Local/nvim/coc-settings.json" -Target "$pwd/coc-settings.json" -Force
 
 cd ~
 
