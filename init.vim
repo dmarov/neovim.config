@@ -37,10 +37,8 @@ set updatetime=100
 set completeopt=menu
 set incsearch
 
-let g:python3_host_prog='C:/Python39/python.exe'
-
 " plug
-call plug#begin('~/AppData/Local/nvim/plugged')
+call plug#begin('~/.config/nvim')
 Plug 'mattn/emmet-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -61,7 +59,7 @@ Plug 'dyng/ctrlsf.vim'
 Plug 'mhinz/vim-signify'
 Plug 'godlygeek/tabular'
 Plug 'janko-m/vim-test'
-Plug 'ycm-core/YouCompleteMe'
+" Plug 'ycm-core/YouCompleteMe'
 Plug 'joshdick/onedark.vim'
 Plug 'cespare/vim-toml'
 Plug 'sheerun/vim-polyglot'
@@ -162,8 +160,8 @@ nmap <Tab> <C-w>w
 nmap <Space> :NERDTreeTabsToggle<CR>
 "" /custom mappings
 
+      " \'coc-angular',
 let g:coc_global_extensions = [
-      \'coc-angular',
       \'coc-cmake',
       \'coc-vetur',
       \'coc-css',
@@ -187,3 +185,4 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <leader> rn <Plug>(coc-rename)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+nmap <leader>qf  <Plug>(coc-fix-current)
