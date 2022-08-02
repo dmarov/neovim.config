@@ -169,7 +169,9 @@ let g:coc_global_extensions = [
       \'coc-html',
       \'coc-phpls', 
       \'coc-json', 
-      \'coc-tsserver'
+      \'coc-tsserver',
+      \'coc-tslint',
+      \'coc-eslint'
       \]
 
 function! s:GoToDefinition()
@@ -179,10 +181,15 @@ function! s:GoToDefinition()
 
 endfunction
 
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-nmap <leader> rn <Plug>(coc-rename)
+nmap <silent>gd <Plug>(coc-definition)
+nmap <silent>gy <Plug>(coc-type-definition)
+nmap <silent>gi <Plug>(coc-implementation)
+nmap <silent>gr <Plug>(coc-references)
+nmap <leader>mv <Plug>(coc-rename)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
-nmap <leader>qf  <Plug>(coc-fix-current)
+xmap <leader>f <Plug>(coc-format-selected)
+nmap <leader>f <Plug>(coc-format-selected)
+xmap <leader>a <Plug>(coc-codeaction-selected)
+nmap <leader>a <Plug>(coc-codeaction-selected)
+nmap <leader>ac <Plug>(coc-codeaction)
+nmap <leader>qf <Plug>(coc-fix-current)
