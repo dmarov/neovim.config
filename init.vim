@@ -58,7 +58,8 @@ Plug 'gregsexton/matchtag'
 Plug 'dyng/ctrlsf.vim'
 Plug 'mhinz/vim-signify'
 Plug 'godlygeek/tabular'
-Plug 'janko-m/vim-test'
+" Plug 'vim-test/vim-test'
+Plug 'prettier/vim-prettier'
 " Plug 'ycm-core/YouCompleteMe'
 Plug 'joshdick/onedark.vim'
 Plug 'cespare/vim-toml'
@@ -171,7 +172,8 @@ let g:coc_global_extensions = [
       \'coc-json', 
       \'coc-tsserver',
       \'coc-tslint',
-      \'coc-eslint'
+      \'coc-eslint',
+      \'coc-stylelintplus'
       \]
 
 function! s:GoToDefinition()
@@ -193,3 +195,9 @@ xmap <leader>a <Plug>(coc-codeaction-selected)
 nmap <leader>a <Plug>(coc-codeaction-selected)
 nmap <leader>ac <Plug>(coc-codeaction)
 nmap <leader>qf <Plug>(coc-fix-current)
+
+let g:NERDTreeMinimalMenu=1
+
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
+
+tnoremap <Esc> <C-\><C-n>
