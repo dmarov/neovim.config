@@ -73,6 +73,7 @@ Plug 'https://github.com/dmarov/minimalist'
 Plug 'joshdick/onedark.vim'
 Plug 'OmniSharp/omnisharp-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neovim/nvim-lspconfig' 
 
 call plug#end()
 " /plug
@@ -162,17 +163,19 @@ nmap <Space> :NERDTreeTabsToggle<CR>
 "" /custom mappings
 
       " \'coc-angular',
+      " \'coc-stylelintplus'
+      " \'coc-css',
 let g:coc_global_extensions = [
       \'coc-cmake',
       \'coc-vetur',
-      \'coc-css',
       \'coc-git',
       \'coc-html',
       \'coc-phpls', 
       \'coc-json', 
       \'coc-tsserver',
-      \'coc-tslint',
       \'coc-eslint',
+      \'coc-tslint',
+      \'coc-lua',
       \'coc-stylelintplus'
       \]
 
