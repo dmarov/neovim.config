@@ -108,70 +108,66 @@ vim.opt.completeopt = 'menu'
 -- show search result on the go
 vim.opt.incsearch = true
 
--- set color scheme
-local Plug = vim.fn['plug#']
-vim.call('plug#begin', '~/.config/nvim/plugged')
--- helper for html
-Plug('mattn/emmet-vim')
--- custom status line
-Plug('vim-airline/vim-airline')
--- themes for custom status line
-Plug('vim-airline/vim-airline-themes')
--- git
-Plug('tpope/vim-fugitive')
--- completion on Tab
-Plug('ervandew/supertab')
--- directory browser
-Plug('scrooloose/nerdtree')
--- simple code comments
-Plug('tpope/vim-commentary')
--- advanced code comments
-Plug('preservim/nerdcommenter')
--- git for directory browser
-Plug('Xuyuanp/nerdtree-git-plugin')
--- fake tabs for nerdtree
-Plug('jistr/vim-nerdtree-tabs')
--- multicursor
-Plug('mg979/vim-visual-multi')
--- move selection with Alt
-Plug('matze/vim-move')
--- change brackets with cs"'
-Plug('tpope/vim-surround')
--- bookmarks with mm mi m...
-Plug('MattesGroeger/vim-bookmarks')
--- auto qoutes, parenthesis, brackets close
-Plug('Raimondi/delimitMate')
--- hightlights html matching tag
-Plug('gregsexton/matchtag')
--- full text search
-Plug('dyng/ctrlsf.vim')
--- marks line VCS status
-Plug('mhinz/vim-signify')
--- indentation
-Plug('godlygeek/tabular')
--- unit test runner
-Plug('vim-test/vim-test')
--- color theme
-Plug('joshdick/onedark.vim')
--- syntax highlight and indentation
-Plug('sheerun/vim-polyglot')
--- snippets support
-Plug('SirVer/ultisnips')
--- snippets collection
-Plug('honza/vim-snippets')
--- editorconfig
-Plug('editorconfig/editorconfig-vim')
--- undo tree visualizer
-Plug('mbbill/undotree')
--- Langserver easy installer
-Plug('neoclide/coc.nvim', { branch = 'release' })
--- configs for nvim lsp client
-Plug('neovim/nvim-lspconfig')
--- formatter
-Plug 'prettier/vim-prettier'
--- fuzzy autocompletion
-Plug 'ycm-core/YouCompleteMe'
-vim.call('plug#end')
+require('packer').startup(function(use)
+  -- helper for html
+  use 'mattn/emmet-vim'
+  -- custom status line
+  use 'vim-airline/vim-airline'
+  -- themes for custom status line
+  use 'vim-airline/vim-airline-themes'
+  -- git
+  use 'tpope/vim-fugitive'
+  -- completion on Tab
+  use 'ervandew/supertab'
+  -- directory browser
+  use 'scrooloose/nerdtree'
+  -- simple code comments
+  use 'tpope/vim-commentary'
+  -- advanced code comments
+  use 'preservim/nerdcommenter'
+  -- git for directory browser
+  use 'Xuyuanp/nerdtree-git-plugin'
+  -- fake tabs for nerdtree
+  use 'jistr/vim-nerdtree-tabs'
+  -- multicursor
+  use 'mg979/vim-visual-multi'
+  -- move selection with Alt
+  use 'matze/vim-move'
+  -- change brackets with cs"'
+  use 'tpope/vim-surround'
+  -- bookmarks with mm mi m...
+  use 'MattesGroeger/vim-bookmarks'
+  -- auto qoutes, parenthesis, brackets close
+  use 'Raimondi/delimitMate'
+  -- hightlights html matching tag
+  use 'gregsexton/matchtag'
+  -- full text search
+  use 'dyng/ctrlsf.vim'
+  -- marks line VCS status
+  use 'mhinz/vim-signify'
+  -- indentation
+  use 'godlygeek/tabular'
+  -- unit test runner
+  use 'vim-test/vim-test'
+  -- color theme
+  use 'joshdick/onedark.vim'
+  -- syntax highlight and indentation
+  use 'sheerun/vim-polyglot'
+  -- snippets support
+  use 'SirVer/ultisnips'
+  -- snippets collection
+  use 'honza/vim-snippets'
+  -- editorconfig
+  use 'editorconfig/editorconfig-vim'
+  -- undo tree visualizer
+  use 'mbbill/undotree'
+  -- Langserver easy installer
+  -- use 'neoclide/coc.nvim', { branch = 'release' }
+  -- configs for nvim lsp client
+  use 'neovim/nvim-lspconfig'
+  -- formatter
+  use 'prettier/vim-prettier'
+end)
 
 -- set theme
 vim.cmd [[
@@ -288,22 +284,21 @@ vim.g['coc_global_extensions'] = {
   'coc-tsserver',
   'coc-eslint',
   'coc-tslint',
-  'coc-lua',
-  'coc-stylelintplus'
+  'coc-lua'
 }
 
-vim.keymap.set('n', 'gd', '<Plug>(coc-definition)', { silent = true })
-vim.keymap.set('n', 'gy', '<Plug>(coc-type-definition)', { silent = true })
-vim.keymap.set('n', 'gi', '<Plug>(coc-implementation)', { silent = true })
-vim.keymap.set('n', 'gr', '<Plug>(coc-references)', { silent = true })
-vim.keymap.set('n', 'mv', '<Plug>(coc-rename)', { silent = true })
-vim.keymap.set('x', '<leader>f', '<Plug>(coc-format-selected)')
-vim.keymap.set('n', '<leader>f', '<Plug>(coc-format-selected)')
-vim.keymap.set('x', '<leader>a', '<Plug>(coc-codeaction-selected)')
-vim.keymap.set('n', '<leader>a', '<Plug>(coc-codeaction-selected)')
-vim.keymap.set('n', '<leader>ac', '<Plug>(coc-codeaction)')
-vim.keymap.set('n', '<leader>qf', '<Plug>(coc-fix-current)')
-vim.keymap.set('i', '<cr>', 'pumvisible() ? coc#pum#confirm() : "<CR>"', { expr = true, noremap = true })
+-- vim.keymap.set('n', 'gd', '<Plug>(coc-definition)', { silent = true })
+-- vim.keymap.set('n', 'gy', '<Plug>(coc-type-definition)', { silent = true })
+-- vim.keymap.set('n', 'gi', '<Plug>(coc-implementation)', { silent = true })
+-- vim.keymap.set('n', 'gr', '<Plug>(coc-references)', { silent = true })
+-- vim.keymap.set('n', 'mv', '<Plug>(coc-rename)', { silent = true })
+-- vim.keymap.set('x', '<leader>f', '<Plug>(coc-format-selected)')
+-- vim.keymap.set('n', '<leader>f', '<Plug>(coc-format-selected)')
+-- vim.keymap.set('x', '<leader>a', '<Plug>(coc-codeaction-selected)')
+-- vim.keymap.set('n', '<leader>a', '<Plug>(coc-codeaction-selected)')
+-- vim.keymap.set('n', '<leader>ac', '<Plug>(coc-codeaction)')
+-- vim.keymap.set('n', '<leader>qf', '<Plug>(coc-fix-current)')
+-- vim.keymap.set('i', '<cr>', 'pumvisible() ? coc#pum#confirm() : "<CR>"', { expr = true, noremap = true })
 
 vim.cmd [[
   function! s:GoToDefinition()
@@ -321,3 +316,9 @@ vim.keymap.set('n', '<Space>', ':NERDTreeTabsToggle<CR>', { silent = true })
 
 -- go to next view on Tab
 vim.keymap.set('n', '<Tab>', '<C-w>w', { silent = true })
+
+require'lspconfig'.tsserver.setup {}
+require'lspconfig'.eslint.setup{}
+require'lspconfig'.html.setup{}
+require'lspconfig'.stylelint_lsp.setup{}
+require'lspconfig'.angularls.setup {}
