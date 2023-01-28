@@ -417,6 +417,9 @@ function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
 end
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
 local lspconfig = require('lspconfig')
 
 local map = function(type, key, value)
@@ -444,17 +447,17 @@ end
 
 lspconfig.tsserver.setup {
   capabilities = capabilities,
-  on_attach = custom_attach
+  on_attach = custom_attach,
 }
 
 lspconfig.eslint.setup{
   capabilities = capabilities,
-  on_attach = custom_attach
+  on_attach = custom_attach,
 }
 
 lspconfig.html.setup{
   capabilities = capabilities,
-  on_attach = custom_attach
+  on_attach = custom_attach,
 }
 
 lspconfig.stylelint_lsp.setup {
@@ -464,8 +467,8 @@ lspconfig.stylelint_lsp.setup {
     'css',
     'less',
     'scss',
-    'sass',
-  }
+    'sass'
+  },
 }
 
 lspconfig.luau_lsp.setup {
@@ -475,5 +478,31 @@ lspconfig.luau_lsp.setup {
 
 lspconfig.yamlls.setup {
   capabilities = capabilities,
-  on_attach = custom_attach
+  on_attach = custom_attach,
+}
+
+lspconfig.cssls.setup {
+  capabilities = capabilities,
+  on_attach = custom_attach,
+  filetypes = {
+    'css',
+    'less',
+    'scss',
+    'sass'
+  },
+}
+
+require'lspconfig'.dockerls.setup {
+  capabilities = capabilities,
+  on_attach = custom_attach,
+}
+
+require'lspconfig'.emmet_ls.setup {
+  capabilities = capabilities,
+  on_attach = custom_attach,
+}
+
+require'lspconfig'.jsonls.setup {
+  capabilities = capabilities,
+  on_attach = custom_attach,
 }
