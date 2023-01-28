@@ -155,10 +155,6 @@ require('packer').startup(function(use)
   use 'joshdick/onedark.vim'
   -- syntax highlight and indentation
   use 'sheerun/vim-polyglot'
-  -- snippets support
-  use 'SirVer/ultisnips'
-  -- snippets collection
-  use 'honza/vim-snippets'
   -- editorconfig
   use 'editorconfig/editorconfig-vim'
   -- undo tree visualizer
@@ -167,6 +163,16 @@ require('packer').startup(function(use)
   use 'neovim/nvim-lspconfig'
   -- formatter
   use 'prettier/vim-prettier'
+  -- completion
+  use 'hrsh7th/nvim-cmp'
+  -- LSP source for nvim-cmp
+  use 'hrsh7th/cmp-nvim-lsp' 
+  -- buffer words
+  use 'hrsh7th/cmp-buffer' 
+  -- Snippets source for nvim-cmp
+  use 'saadparwaiz1/cmp_luasnip'
+  -- Snippets plugin
+  use 'L3MON4D3/LuaSnip'
 end)
 
 -- set theme
@@ -303,39 +309,167 @@ vim.keymap.set('n', '<Space>', ':NERDTreeTabsToggle<CR>', { silent = true })
 -- go to next view on Tab
 vim.keymap.set('n', '<Tab>', '<C-w>w', { silent = true })
 
-require'lspconfig'.tsserver.setup {}
-require'lspconfig'.eslint.setup{}
-require'lspconfig'.html.setup{}
-require'lspconfig'.stylelint_lsp.setup{
+
+-- luasnip setup
+local luasnip = require 'luasnip'
+
+-- nvim-cmp setup
+local cmp = require 'cmp'
+cmp.setup {
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body)
+    end,
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-u>'] = cmp.mapping.scroll_docs(-4), -- Up
+    ['<C-d>'] = cmp.mapping.scroll_docs(4), -- Down
+    -- C-b (back) C-f (forward) for snippet placeholder navigation.
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<CR>'] = cmp.mapping.confirm {
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    },
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+  }),
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' },
+  },
+}
+
+
+-- vim.diagnostic.config({
+--   virtual_text = false
+-- })
+
+-- vim.o.updatetime = 500
+-- vim.cmd [[
+--   autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})
+-- ]]
+
+-- vim.api.nvim_create_autocmd('LspAttach', {
+--   callback = function(args)
+--     local client = vim.lsp.get_client_by_id(args.data.client_id)
+--     if client.server_capabilities.hoverProvider then
+--       vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = args.buf })
+--     end
+--   end,
+-- })
+
+-- M = {}
+
+-- local lsp_util = vim.lsp.util
+
+-- function M.code_action_listener()
+--   local context = { diagnostics = vim.lsp.diagnostic.get_line_diagnostics() }
+--   local params = lsp_util.make_range_params()
+--   params.context = context
+--   vim.lsp.buf_request(0, 'textDocument/codeAction', params, function(err, _, result)
+--     -- do something with result - e.g. check if empty and show some indication such as a sign
+--   end)
+-- end
+
+-- vim.cmd [[
+--   autocmd CursorHold,CursorHoldI * lua M.code_action_listener()
+-- ]]
+
+vim.cmd [[autocmd! ColorScheme * highlight NormalFloat guibg=#1f2335]]
+vim.cmd [[autocmd! ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
+
+local border = {
+      {"🭽", "FloatBorder"},
+      {"▔", "FloatBorder"},
+      {"🭾", "FloatBorder"},
+      {"▕", "FloatBorder"},
+      {"🭿", "FloatBorder"},
+      {"▁", "FloatBorder"},
+      {"🭼", "FloatBorder"},
+      {"▏", "FloatBorder"},
+}
+
+local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+  opts = opts or {}
+  opts.border = opts.border or border
+  return orig_util_open_floating_preview(contents, syntax, opts, ...)
+end
+
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+local lspconfig = require('lspconfig')
+
+local map = function(type, key, value)
+	vim.api.nvim_buf_set_keymap(0,type,key,value,{noremap = true, silent = true});
+end
+
+local custom_attach = function(client)
+  map('n','gD','<cmd>lua vim.lsp.buf.declaration()<CR>')
+  map('n','gd','<cmd>lua vim.lsp.buf.definition()<CR>')
+  map('n','K','<cmd>lua vim.lsp.buf.hover()<CR>')
+  map('n','gr','<cmd>lua vim.lsp.buf.references()<CR>')
+  map('n','gs','<cmd>lua vim.lsp.buf.signature_help()<CR>')
+  map('n','gi','<cmd>lua vim.lsp.buf.implementation()<CR>')
+  map('n','gt','<cmd>lua vim.lsp.buf.type_definition()<CR>')
+  map('n','<leader>gw','<cmd>lua vim.lsp.buf.document_symbol()<CR>')
+  map('n','<leader>gW','<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
+  map('n','<leader>ah','<cmd>lua vim.lsp.buf.hover()<CR>')
+  map('n','<leader>af','<cmd>lua vim.lsp.buf.code_action()<CR>')
+  map('n','<leader>ee','<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>')
+  map('n','<leader>ar','<cmd>lua vim.lsp.buf.rename()<CR>')
+  map('n','<leader>=', '<cmd>lua vim.lsp.buf.formatting()<CR>')
+  map('n','<leader>ai','<cmd>lua vim.lsp.buf.incoming_calls()<CR>')
+  map('n','<leader>ao','<cmd>lua vim.lsp.buf.outgoing_calls()<CR>')
+end
+
+lspconfig.tsserver.setup {
+  capabilities = capabilities,
+  on_attach = custom_attach
+}
+
+lspconfig.eslint.setup{
+  capabilities = capabilities,
+  on_attach = custom_attach
+}
+
+lspconfig.html.setup{
+  capabilities = capabilities,
+  on_attach = custom_attach
+}
+
+lspconfig.stylelint_lsp.setup {
+  capabilities = capabilities,
+  on_attach = custom_attach,
   filetypes = {
     'css',
     'less',
     'scss',
-    'sugarss',
-    'vue',
-    'wxss',
-    -- TODO: figure out why uexpected errors appear
-    -- 'javascript',
-    -- 'javascriptreact',
-    -- 'typescript',
-    -- 'typescriptreac't
+    'sass',
   }
 }
 
-vim.diagnostic.config({
-  virtual_text = false
-})
+lspconfig.luau_lsp.setup {
+  capabilities = capabilities,
+  on_attach = custom_attach,
+}
 
-vim.o.updatetime = 250
-vim.cmd [[
-  autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})
-]]
-
-vim.api.nvim_create_autocmd('LspAttach', {
-  callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    if client.server_capabilities.hoverProvider then
-      vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = args.buf })
-    end
-  end,
-})
+lspconfig.yamlls.setup {
+  capabilities = capabilities,
+  on_attach = custom_attach
+}
