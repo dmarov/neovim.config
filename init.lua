@@ -273,7 +273,7 @@ vim.keymap.set('n', '<leader>g', ':TestVisit<CR>]')
 
 vim.g['test#strategy'] = {
   nearest = 'neovim',
-  file = 'neovim',
+  file = 'neovim'
 }
 
 -- CtrlSF
