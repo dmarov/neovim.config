@@ -111,40 +111,66 @@ vim.opt.incsearch = true
 -- set color scheme
 local Plug = vim.fn['plug#']
 vim.call('plug#begin', '~/.config/nvim/plugged')
+-- helper for html
 Plug('mattn/emmet-vim')
+-- custom status line
 Plug('vim-airline/vim-airline')
+-- themes for custom status line
 Plug('vim-airline/vim-airline-themes')
+-- git
 Plug('tpope/vim-fugitive')
+-- completion on Tab
 Plug('ervandew/supertab')
+-- directory browser
 Plug('scrooloose/nerdtree')
-Plug('scrooloose/nerdcommenter')
-Plug('Xuyuanp/nerdtree-git-plugin')
-Plug('jistr/vim-nerdtree-tabs')
-Plug('mg979/vim-visual-multi', {branch = 'master'})
-Plug('matze/vim-move')
-Plug('tpope/vim-surround')
+-- simple code comments
 Plug('tpope/vim-commentary')
+-- advanced code comments
+Plug('preservim/nerdcommenter')
+-- git for directory browser
+Plug('Xuyuanp/nerdtree-git-plugin')
+-- fake tabs for nerdtree
+Plug('jistr/vim-nerdtree-tabs')
+-- multicursor
+Plug('mg979/vim-visual-multi')
+-- move selection with Alt
+Plug('matze/vim-move')
+-- change brackets with cs"'
+Plug('tpope/vim-surround')
+-- bookmarks with mm mi m...
 Plug('MattesGroeger/vim-bookmarks')
+-- auto qoutes, parenthesis, brackets close
 Plug('Raimondi/delimitMate')
+-- hightlights html matching tag
 Plug('gregsexton/matchtag')
+-- full text search
 Plug('dyng/ctrlsf.vim')
+-- marks line VCS status
 Plug('mhinz/vim-signify')
+-- indentation
 Plug('godlygeek/tabular')
+-- unit test runner
 Plug('vim-test/vim-test')
--- Plug 'prettier/vim-prettier'
--- Plug 'ycm-core/YouCompleteMe'
+-- color theme
 Plug('joshdick/onedark.vim')
-Plug('cespare/vim-toml')
+-- syntax highlight and indentation
 Plug('sheerun/vim-polyglot')
+-- snippets support
 Plug('SirVer/ultisnips')
+-- snippets collection
+Plug('honza/vim-snippets')
+-- editorconfig
 Plug('editorconfig/editorconfig-vim')
+-- undo tree visualizer
 Plug('mbbill/undotree')
-Plug('pangloss/vim-javascript')
-Plug('leafgarland/typescript-vim')
-Plug('joshdick/onedark.vim')
-Plug('OmniSharp/omnisharp-vim')
-Plug('neoclide/coc.nvim', {branch = 'release'})
+-- Langserver easy installer
+Plug('neoclide/coc.nvim', { branch = 'release' })
+-- configs for nvim lsp client
 Plug('neovim/nvim-lspconfig')
+-- formatter
+Plug 'prettier/vim-prettier'
+-- fuzzy autocompletion
+Plug 'ycm-core/YouCompleteMe'
 vim.call('plug#end')
 
 -- set theme
@@ -288,10 +314,10 @@ vim.cmd [[
 ]]
 
 -- reload current vim config
-vim.keymap.set('n', '<leader>sv', ':source $MYVIMRC<CR>')
+vim.keymap.set('n', '<leader>sv', ':source $MYVIMRC<CR>', { silent = true })
 
 -- toggle NERDTree on space
-vim.keymap.set('n', '<Space>', ':NERDTreeTabsToggle<CR>')
+vim.keymap.set('n', '<Space>', ':NERDTreeTabsToggle<CR>', { silent = true })
 
 -- go to next view on Tab
-vim.keymap.set('n', '<Tab>', '<C-w>w')
+vim.keymap.set('n', '<Tab>', '<C-w>w', { silent = true })
