@@ -40,7 +40,7 @@ vim.opt.backup = false
 vim.opt.undofile = true
 
 -- set director to store undo files
-vim.opt.undodir = '~/.config/nvim/backups'
+vim.opt.undodir = vim.fn.expand('~/.config/nvim/backups')
 
 -- show line numbers
 vim.opt.number = true
@@ -130,8 +130,8 @@ Plug('gregsexton/matchtag')
 Plug('dyng/ctrlsf.vim')
 Plug('mhinz/vim-signify')
 Plug('godlygeek/tabular')
--- Plug 'vim-test/vim-test'
-Plug 'prettier/vim-prettier'
+Plug('vim-test/vim-test')
+-- Plug 'prettier/vim-prettier'
 -- Plug 'ycm-core/YouCompleteMe'
 Plug('joshdick/onedark.vim')
 Plug('cespare/vim-toml')
@@ -147,7 +147,151 @@ Plug('neoclide/coc.nvim', {branch = 'release'})
 Plug('neovim/nvim-lspconfig')
 vim.call('plug#end')
 
+-- set theme
 vim.cmd [[
   syntax enable
   colorscheme onedark
 ]]
+
+-- always show status line
+vim.cmd [[
+  let laststatus = 2
+]]
+
+-- something related to terminal colors
+vim.g['rehash256'] = 1
+
+-- NERDTree
+vim.g['NERDTreeWinSize'] = 30;
+vim.g['NERDTreeDirArrows'] = 1;
+vim.g['NERDTreeDirArrowExpandable'] = '▸'
+vim.g['NERDTreeDirArrowCollapsible'] = '▾'
+vim.g['NERDTreeShowHidden']=1
+vim.g['NERDTreeMapUpdir'] = 'h'
+vim.g['NERDTreeMapChangeRoot'] = 'l'
+vim.g['NERDTreeMinimalMenu'] = 1
+
+-- NERDTree tabs
+vim.g['nerdtree_tabs_open_on_console_startup'] = 1
+vim.g['nerdtree_tabs_open_on_gui_startup'] = 1
+vim.g['nerdtree_tabs_focus_on_files'] = 1
+vim.g['nerdtree_tabs_synchronize_view'] = 0
+
+-- NERDTree git
+vim.g['NERDTreeGitStatusIndicatorMapCustom'] = {
+  Modified = "✹",
+  Staged = "✚",
+  Untracked = "✭",
+  Renamed = "➜",
+  Unmerged = "═",
+  Deleted = "✖",
+  Dirty = "✗",
+  Clean = "✔︎",
+  Unknown = "?"
+}
+
+-- airline
+vim.g['airline#extensions#tabline#enabled'] = 1
+vim.g['airline_theme'] = 'raven'
+vim.g['airline_powerline_fonts'] = 1
+
+vim.cmd [[
+  if !exists('g:airline_symbols')
+      let g:airline_symbols = {}
+  endif
+]]
+
+vim.g['airline_left_sep'] = '»'
+vim.g['airline_left_sep'] = '▶'
+vim.g['airline_right_sep'] = '«'
+vim.g['airline_right_sep'] = '◀'
+vim.g['airline_symbols.linenr'] = '␊'
+vim.g['airline_symbols.linenr'] = '␤'
+vim.g['airline_symbols.linenr'] = '¶'
+vim.g['airline_symbols.branch'] = '⎇'
+vim.g['airline_symbols.paste'] = 'ρ'
+vim.g['airline_symbols.paste'] = 'Þ'
+vim.g['airline_symbols.paste'] = '∥'
+vim.g['airline_symbols.whitespace'] = 'Ξ'
+vim.g['airline_left_sep'] = ''
+vim.g['airline_left_alt_sep'] = ''
+vim.g['airline_right_sep'] = ''
+vim.g['airline_right_alt_sep'] = ''
+vim.g['airline_symbols.branch'] = ''
+vim.g['airline_symbols.readonly'] = ''
+vim.g['airline_symbols.linenr'] = ''
+
+-- emmet
+-- prevent installation of global mappings
+vim.g['user_emmet_install_global'] = 0
+
+vim.cmd [[
+  autocmd FileType cshtml,html,css,scss,sass EmmetInstall
+]]
+
+-- vim-move
+vim.g['move_key_modifier'] = 'C'
+
+-- vim-test
+vim.keymap.set('n', '<leader>t', ':TestNearest<CR>]')
+vim.keymap.set('n', '<leader>T', ':TestFile<CR>]')
+vim.keymap.set('n', '<leader>a', ':TestSuite<CR>]')
+vim.keymap.set('n', '<leader>l', ':TestLast<CR>]')
+vim.keymap.set('n', '<leader>g', ':TestVisit<CR>]')
+
+vim.g['test#strategy'] = {
+  nearest = 'neovim',
+  file = 'neovim',
+}
+
+-- CtrlSF
+vim.g['ctrlsf_default_view_mode'] = 'compact'
+vim.g['ctrlsf_position'] = 'bottom'
+vim.g['ctrlsf_regex_pattern'] = 1
+vim.g['ctrlsf_selected_line_hl'] = 'op'
+vim.g['ctrlsf_winsize'] = '100%'
+
+-- coc
+vim.g['coc_global_extensions'] = {
+  'coc-cmake',
+  'coc-vetur',
+  'coc-git',
+  'coc-html',
+  'coc-phpls',
+  'coc-json',
+  'coc-tsserver',
+  'coc-eslint',
+  'coc-tslint',
+  'coc-lua',
+  'coc-stylelintplus'
+}
+
+vim.keymap.set('n', 'gd', '<Plug>(coc-definition)', { silent = true })
+vim.keymap.set('n', 'gy', '<Plug>(coc-type-definition)', { silent = true })
+vim.keymap.set('n', 'gi', '<Plug>(coc-implementation)', { silent = true })
+vim.keymap.set('n', 'gr', '<Plug>(coc-references)', { silent = true })
+vim.keymap.set('n', 'mv', '<Plug>(coc-rename)', { silent = true })
+vim.keymap.set('x', '<leader>f', '<Plug>(coc-format-selected)')
+vim.keymap.set('n', '<leader>f', '<Plug>(coc-format-selected)')
+vim.keymap.set('x', '<leader>a', '<Plug>(coc-codeaction-selected)')
+vim.keymap.set('n', '<leader>a', '<Plug>(coc-codeaction-selected)')
+vim.keymap.set('n', '<leader>ac', '<Plug>(coc-codeaction)')
+vim.keymap.set('n', '<leader>qf', '<Plug>(coc-fix-current)')
+vim.keymap.set('i', '<cr>', 'pumvisible() ? coc#pum#confirm() : "<CR>"', { expr = true, noremap = true })
+
+vim.cmd [[
+  function! s:GoToDefinition()
+    if CocAction('jumpDefinition')
+      return v:true
+    endif
+  endfunction
+]]
+
+-- reload current vim config
+vim.keymap.set('n', '<leader>sv', ':source $MYVIMRC<CR>')
+
+-- toggle NERDTree on space
+vim.keymap.set('n', '<Space>', ':NERDTreeTabsToggle<CR>')
+
+-- go to next view on Tab
+vim.keymap.set('n', '<Tab>', '<C-w>w')

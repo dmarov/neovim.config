@@ -18,6 +18,10 @@ sudo pacman -S --needed \
 #    liberation-fonts-ttf \
 #    global \
     ctags \
+    powerline \
+    poverline-fonts \
+    poverline-vim \
+    ttf-hack \
 #    rubygem-gems \
 #    the_silver_searcher \
 
