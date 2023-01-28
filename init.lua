@@ -175,6 +175,10 @@ require('packer').startup(function(use)
   use 'L3MON4D3/LuaSnip'
 end)
 
+vim.cmd [[
+  set completeopt=menu,menuone,noselect
+]]
+
 -- set theme
 vim.cmd [[
   syntax enable
