@@ -109,6 +109,8 @@ vim.opt.completeopt = 'menu'
 vim.opt.incsearch = true
 
 require('packer').startup(function(use)
+  -- packer itself
+  use 'wbthomason/packer.nvim'
   -- helper for html
   use 'mattn/emmet-vim'
   -- custom status line
@@ -161,8 +163,6 @@ require('packer').startup(function(use)
   use 'editorconfig/editorconfig-vim'
   -- undo tree visualizer
   use 'mbbill/undotree'
-  -- Langserver easy installer
-  -- use 'neoclide/coc.nvim', { branch = 'release' }
   -- configs for nvim lsp client
   use 'neovim/nvim-lspconfig'
   -- formatter
@@ -273,20 +273,6 @@ vim.g['ctrlsf_regex_pattern'] = 1
 vim.g['ctrlsf_selected_line_hl'] = 'op'
 vim.g['ctrlsf_winsize'] = '100%'
 
--- coc
-vim.g['coc_global_extensions'] = {
-  'coc-cmake',
-  'coc-vetur',
-  'coc-git',
-  'coc-html',
-  'coc-phpls',
-  'coc-json',
-  'coc-tsserver',
-  'coc-eslint',
-  'coc-tslint',
-  'coc-lua'
-}
-
 -- vim.keymap.set('n', 'gd', '<Plug>(coc-definition)', { silent = true })
 -- vim.keymap.set('n', 'gy', '<Plug>(coc-type-definition)', { silent = true })
 -- vim.keymap.set('n', 'gi', '<Plug>(coc-implementation)', { silent = true })
@@ -320,5 +306,36 @@ vim.keymap.set('n', '<Tab>', '<C-w>w', { silent = true })
 require'lspconfig'.tsserver.setup {}
 require'lspconfig'.eslint.setup{}
 require'lspconfig'.html.setup{}
-require'lspconfig'.stylelint_lsp.setup{}
-require'lspconfig'.angularls.setup {}
+require'lspconfig'.stylelint_lsp.setup{
+  filetypes = {
+    'css',
+    'less',
+    'scss',
+    'sugarss',
+    'vue',
+    'wxss',
+    -- TODO: figure out why uexpected errors appear
+    -- 'javascript',
+    -- 'javascriptreact',
+    -- 'typescript',
+    -- 'typescriptreac't
+  }
+}
+
+vim.diagnostic.config({
+  virtual_text = false
+})
+
+vim.o.updatetime = 250
+vim.cmd [[
+  autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})
+]]
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client.server_capabilities.hoverProvider then
+      vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = args.buf })
+    end
+  end,
+})
