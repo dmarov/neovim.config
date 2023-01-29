@@ -283,19 +283,6 @@ vim.g['ctrlsf_regex_pattern'] = 1
 vim.g['ctrlsf_selected_line_hl'] = 'op'
 vim.g['ctrlsf_winsize'] = '100%'
 
--- vim.keymap.set('n', 'gd', '<Plug>(coc-definition)', { silent = true })
--- vim.keymap.set('n', 'gy', '<Plug>(coc-type-definition)', { silent = true })
--- vim.keymap.set('n', 'gi', '<Plug>(coc-implementation)', { silent = true })
--- vim.keymap.set('n', 'gr', '<Plug>(coc-references)', { silent = true })
--- vim.keymap.set('n', 'mv', '<Plug>(coc-rename)', { silent = true })
--- vim.keymap.set('x', '<leader>f', '<Plug>(coc-format-selected)')
--- vim.keymap.set('n', '<leader>f', '<Plug>(coc-format-selected)')
--- vim.keymap.set('x', '<leader>a', '<Plug>(coc-codeaction-selected)')
--- vim.keymap.set('n', '<leader>a', '<Plug>(coc-codeaction-selected)')
--- vim.keymap.set('n', '<leader>ac', '<Plug>(coc-codeaction)')
--- vim.keymap.set('n', '<leader>qf', '<Plug>(coc-fix-current)')
--- vim.keymap.set('i', '<cr>', 'pumvisible() ? coc#pum#confirm() : "<CR>"', { expr = true, noremap = true })
-
 vim.cmd [[
   function! s:GoToDefinition()
     if CocAction('jumpDefinition')
@@ -312,7 +299,6 @@ vim.keymap.set('n', '<Space>', ':NERDTreeTabsToggle<CR>', { silent = true })
 
 -- go to next view on Tab
 vim.keymap.set('n', '<Tab>', '<C-w>w', { silent = true })
-
 
 -- luasnip setup
 local luasnip = require 'luasnip'
@@ -369,52 +355,8 @@ cmp.setup {
 --   autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})
 -- ]]
 
--- vim.api.nvim_create_autocmd('LspAttach', {
---   callback = function(args)
---     local client = vim.lsp.get_client_by_id(args.data.client_id)
---     if client.server_capabilities.hoverProvider then
---       vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = args.buf })
---     end
---   end,
--- })
-
--- M = {}
-
--- local lsp_util = vim.lsp.util
-
--- function M.code_action_listener()
---   local context = { diagnostics = vim.lsp.diagnostic.get_line_diagnostics() }
---   local params = lsp_util.make_range_params()
---   params.context = context
---   vim.lsp.buf_request(0, 'textDocument/codeAction', params, function(err, _, result)
---     -- do something with result - e.g. check if empty and show some indication such as a sign
---   end)
--- end
-
--- vim.cmd [[
---   autocmd CursorHold,CursorHoldI * lua M.code_action_listener()
--- ]]
-
-vim.cmd [[autocmd! ColorScheme * highlight NormalFloat guibg=#1f2335]]
-vim.cmd [[autocmd! ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
-
-local border = {
-      {"🭽", "FloatBorder"},
-      {"▔", "FloatBorder"},
-      {"🭾", "FloatBorder"},
-      {"▕", "FloatBorder"},
-      {"🭿", "FloatBorder"},
-      {"▁", "FloatBorder"},
-      {"🭼", "FloatBorder"},
-      {"▏", "FloatBorder"},
-}
-
-local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
-function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-  opts = opts or {}
-  opts.border = opts.border or border
-  return orig_util_open_floating_preview(contents, syntax, opts, ...)
-end
+-- vim.cmd [[autocmd! ColorScheme * highlight NormalFloat guibg=#1f2335]]
+-- vim.cmd [[autocmd! ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
