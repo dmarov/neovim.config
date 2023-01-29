@@ -1,3 +1,4 @@
+# DEPRECATED
 #!/bin/sh 
 
 if [ $(uname) == 'FreeBSD' ];

@@ -1,3 +1,4 @@
+# DEPRECATED
 # from admin
 choco install git -y
 choco install python3 -y

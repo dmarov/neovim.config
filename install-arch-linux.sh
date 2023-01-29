@@ -1,3 +1,4 @@
+# DEPRECATED
 
 #!/usr/bin/sh 
 
@@ -25,29 +26,10 @@ sudo pacman -S --needed \
 #    rubygem-gems \
 #    the_silver_searcher \
 
-#sudo yarn global add postcss-cli autoprefixer
-#sudo easy_install-3.5 pip
 sudo pip install neovim
 sudo pip install neovim-remote
-#sudo gem install neovim
-
-# create folders
-mkdir -p ~/.config/nvim/autoload
-mkdir -p ~/.config/nvim/plugged
-mkdir -p ~/.config/nvim/colors
-
-# install plug
-curl -fLo ~/.config/nvim/autoload/plug.vim \
-https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # install config
-ln -sf `pwd`/init.vim ~/.config/nvim/init.vim
-ln -sf `pwd`/ginit.vim ~/.config/nvim/ginit.vim
-ln -sf `pwd`/coc-settings.json ~/.config/nvim/coc-settings.json
+ln -sf `pwd` ~/.config/nvim
 
 cd ~
-
-nvim -c PlugUpgrade -c PlugInstall -c PlugUpdate -c q -c q
-nvim -c UpdateRemotePlugins -c q -c q
-
-echo done!

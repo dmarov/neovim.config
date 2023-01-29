@@ -29,3 +29,9 @@ or
 ```
 install-windows.ps1
 ```
+
+# TODO:
+- refactor lua config
+- add snippets autocompletion
+- improve directory browser
+- test in docker
