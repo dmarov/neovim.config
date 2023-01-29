@@ -202,5 +202,3 @@ nmap <leader>qf <Plug>(coc-fix-current)
 let g:NERDTreeMinimalMenu=1
 
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
-
-tnoremap <Esc> <C-\><C-n>
