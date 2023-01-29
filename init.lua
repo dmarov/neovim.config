@@ -40,7 +40,7 @@ vim.opt.backup = false
 vim.opt.undofile = true
 
 -- set director to store undo files
-vim.opt.undodir = vim.fn.expand('~/.config/nvim/backups')
+vim.opt.undodir = vim.fn.expand('~/.local/share/nvim/backups')
 
 -- show line numbers
 vim.opt.number = true
