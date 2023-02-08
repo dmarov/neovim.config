@@ -4,30 +4,19 @@
 
 # Install:
 
-1. Clone repository
+1. Run
 ```
-git clone https://github.com/dmarov/nvimrc
-```
-
-2. Execute install script for your platform
-```
-cd nvimrc
+ln -sf `pwd` ~/.config/nvim
 ```
 
-```
-zsh install-freebsd.sh
-```
+from current directory
 
-or
+2. Execute
 
 ```
-zsh install-arch-linux.sh
-```
+nvim
 
-or
-
-```
-install-windows.ps1
+:PackerSync
 ```
 
 # TODO:
