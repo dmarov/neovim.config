@@ -108,6 +108,8 @@ vim.opt.completeopt = 'menu'
 -- show search result on the go
 vim.opt.incsearch = true
 
+vim.cmd [[packadd packer.nvim]]
+
 require('packer').startup(function(use)
   -- packer itself
   use 'wbthomason/packer.nvim'
