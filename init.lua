@@ -301,6 +301,7 @@ vim.keymap.set('n', '<Space>', ':NERDTreeTabsToggle<CR>', { silent = true })
 
 -- go to next view on Tab
 vim.keymap.set('n', '<Tab>', '<C-w>w', { silent = true })
+vim.keymap.set('n', '<S-Tab>', '<C-w><S-w>', { silent = true })
 
 -- luasnip setup
 local luasnip = require 'luasnip'
@@ -377,7 +378,7 @@ local custom_attach = function(client)
   map('n','gr','<cmd>lua vim.lsp.buf.references()<CR>')
   map('n','gs','<cmd>lua vim.lsp.buf.signature_help()<CR>')
   map('n','gi','<cmd>lua vim.lsp.buf.implementation()<CR>')
-  map('n','gt','<cmd>lua vim.lsp.buf.type_definition()<CR>')
+  -- map('n','gt','<cmd>lua vim.lsp.buf.type_definition()<CR>')
   map('n','<leader>gw','<cmd>lua vim.lsp.buf.document_symbol()<CR>')
   map('n','<leader>gW','<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
   map('n','<leader>ah','<cmd>lua vim.lsp.buf.hover()<CR>')
