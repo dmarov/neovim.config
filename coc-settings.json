@@ -1,6 +1,0 @@
-{
-    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
-    "typescript.updateImportsOnFileMove.enable": true,
-    "javascript.updateImportsOnFileMove.enable": true,
-    "Lua.diagnostics.globals": ["vim"]
-}
