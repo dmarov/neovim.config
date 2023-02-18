@@ -348,19 +348,6 @@ cmp.setup {
   },
 }
 
-
--- vim.diagnostic.config({
---   virtual_text = false
--- })
-
--- vim.o.updatetime = 500
--- vim.cmd [[
---   autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})
--- ]]
-
--- vim.cmd [[autocmd! ColorScheme * highlight NormalFloat guibg=#1f2335]]
--- vim.cmd [[autocmd! ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
-
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -378,10 +365,9 @@ local custom_attach = function(client)
   map('n','gr','<cmd>lua vim.lsp.buf.references()<CR>')
   map('n','gs','<cmd>lua vim.lsp.buf.signature_help()<CR>')
   map('n','gi','<cmd>lua vim.lsp.buf.implementation()<CR>')
-  -- map('n','gt','<cmd>lua vim.lsp.buf.type_definition()<CR>')
+  map('n','td','<cmd>lua vim.lsp.buf.type_definition()<CR>')
   map('n','<leader>gw','<cmd>lua vim.lsp.buf.document_symbol()<CR>')
   map('n','<leader>gW','<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
-  map('n','<leader>ah','<cmd>lua vim.lsp.buf.hover()<CR>')
   map('n','<leader>af','<cmd>lua vim.lsp.buf.code_action()<CR>')
   map('n','<leader>ee','<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>')
   map('n','<leader>ar','<cmd>lua vim.lsp.buf.rename()<CR>')
