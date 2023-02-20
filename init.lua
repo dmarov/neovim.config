@@ -175,6 +175,8 @@ require('packer').startup(function(use)
   use 'saadparwaiz1/cmp_luasnip'
   -- Snippets plugin
   use 'L3MON4D3/LuaSnip'
+  -- Error verbose info
+  use 'folke/trouble.nvim'
 end)
 
 vim.cmd [[
@@ -302,6 +304,14 @@ vim.keymap.set('n', '<Space>', ':NERDTreeTabsToggle<CR>', { silent = true })
 -- go to next view on Tab
 vim.keymap.set('n', '<Tab>', '<C-w>w', { silent = true })
 vim.keymap.set('n', '<S-Tab>', '<C-w><S-w>', { silent = true })
+
+-- trouble
+vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>", { silent = true, noremap = true })
+vim.keymap.set("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>", { silent = true, noremap = true })
+vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", { silent = true, noremap = true })
+vim.keymap.set("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>", { silent = true, noremap = true })
+vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", { silent = true, noremap = true })
+vim.keymap.set("n", "gR", "<cmd>TroubleToggle lsp_references<cr>", { silent = true, noremap = true })
 
 -- luasnip setup
 local luasnip = require 'luasnip'
@@ -437,3 +447,4 @@ lspconfig.jsonls.setup {
   capabilities = capabilities,
   on_attach = custom_attach,
 }
+
